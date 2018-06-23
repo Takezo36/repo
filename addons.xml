@@ -50,4 +50,15 @@
         <license>GNU GENERAL PUBLIC LICENSE Version 2.1, February 1999</license>
         <source>https://github.com/Takezo36/applauncherkodi</source>
     </extension>
+</addon><addon id="repository.takezo36" name="Takezo36 Add-ons" provider-name="Benjamin Hebgen(Takezo36)" version="1.0.0">
+  <extension name="Aussie Add-ons Repository" point="xbmc.addon.repository">
+    <info compressed="false">https://raw.githubusercontent.com/Takezo36/repo/master/addons.xml</info>
+    <checksum>https://raw.githubusercontent.com/Takezo36/repo/master/addons.xml.md5</checksum>
+    <datadir zip="true">https://raw.githubusercontent.com/Takezo36/repo/master/</datadir>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>Install Takezo36 Add-ons</summary>
+    <description>Download and install add-ons from the Takezo36 Add-ons repository.</description>
+    <platform>all</platform>
+  </extension>
 </addon></addons>
