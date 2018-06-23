@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.module.xlib"
+       name="python xlib"
+       version="0.2.3" 
+       provider-name="Benjamin Hebgen (Takezo36)">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.six" version="1.11.0"/>
+  </requires>
+  <extension point="xbmc.python.module"
+             library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <language></language>
+    <summary lang="en">The Python X Library is intended to be a fully functional X client library for Python programs.</summary>
+    <description lang="en">The Python X Library is intended to be a fully functional X client library for Python programs. It is written entirely in Python, in contrast to earlier X libraries for Python (the ancient X extension and the newer plxlib) which were interfaces to the C Xlib.</description>
+    <disclaimer lang="en">Code taken from https://github.com/python-xlib/python-xlib Copyright (C) 2000-2002  Peter Liljenberg</disclaimer>
+    <license>GNU LESSER GENERAL PUBLIC LICENSE v. 2.1</license>
+    <website>https://github.com/python-xlib/python-xlib</website>
+    <source>https://github.com/Takezo36/python-xlib</source>
+  </extension>
+</addon>

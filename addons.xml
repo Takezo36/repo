@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<addons><addon id="script.module.ewmh" name="python ewmh" provider-name="Benjamin Hebgen (Takezo36)" version="0.1.6">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0" />
+    <import addon="script.module.six" version="1.11.0" />
+    <import addon="script.module.xlib" version="0.2.3" />
+  </requires>
+  <extension library="lib" point="xbmc.python.module" />
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <language />
+    <summary lang="en">This module intends to provide an implementation of Extended Window Manager Hints, based on the Xlib modules for python.</summary>
+    <description lang="en">See the freedesktop.org `specification http://standards.freedesktop.org/wm-spec/wm-spec-latest.html for more information.</description>
+    <disclaimer lang="en">Code taken from https://github.com/parkouss/pyewmh</disclaimer>
+    <license>GNU LESSER GENERAL PUBLIC LICENSE v. 3</license>
+    <website>https://github.com/parkouss/pyewmh</website>
+    <source>https://github.com/Takezo36/pyewmh</source>
+  </extension>
+</addon><addon id="script.module.xlib" name="python xlib" provider-name="Benjamin Hebgen (Takezo36)" version="0.2.3">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0" />
+    <import addon="script.module.six" version="1.11.0" />
+  </requires>
+  <extension library="lib" point="xbmc.python.module" />
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <language />
+    <summary lang="en">The Python X Library is intended to be a fully functional X client library for Python programs.</summary>
+    <description lang="en">The Python X Library is intended to be a fully functional X client library for Python programs. It is written entirely in Python, in contrast to earlier X libraries for Python (the ancient X extension and the newer plxlib) which were interfaces to the C Xlib.</description>
+    <disclaimer lang="en">Code taken from https://github.com/python-xlib/python-xlib Copyright (C) 2000-2002  Peter Liljenberg</disclaimer>
+    <license>GNU LESSER GENERAL PUBLIC LICENSE v. 2.1</license>
+    <website>https://github.com/python-xlib/python-xlib</website>
+    <source>https://github.com/Takezo36/python-xlib</source>
+  </extension>
+</addon><addon id="plugin.program.applauncher" name="App Launcher" provider-name="Benjamin Hebgen (Takezo36)" version="0.5.1">
+    <requires>
+        <import addon="xbmc.python" version="2.24.0" />
+        <import addon="script.module.simplejson" version="3.3.0" />
+        <import addon="script.module.ewmh" version="0.1.6" />
+        <import addon="script.common.plugin.cache" version="2.5.10" />
+    </requires>
+    
+    <extension library="plugin.py" point="xbmc.python.pluginsource">
+	<provides>executable</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">app launcher for os apps</summary>
+        <description lang="en">app launcher showing app structure provided by the OS. Meaning Startmenu in Windows or .desktop files in linux</description>
+        <platform>all</platform>
+        <license>GNU GENERAL PUBLIC LICENSE Version 2.1, February 1999</license>
+        <source>https://github.com/Takezo36/applauncherkodi</source>
+    </extension>
+</addon></addons>

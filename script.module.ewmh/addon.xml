@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.module.ewmh"
+       name="python ewmh"
+       version="0.1.6" 
+       provider-name="Benjamin Hebgen (Takezo36)">
+  <requires>
+    <import addon="xbmc.python" version="2.1.0"/>
+    <import addon="script.module.six" version="1.11.0"/>
+    <import addon="script.module.xlib" version="0.2.3"/>
+  </requires>
+  <extension point="xbmc.python.module"
+             library="lib" />
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <language></language>
+    <summary lang="en">This module intends to provide an implementation of Extended Window Manager Hints, based on the Xlib modules for python.</summary>
+    <description lang="en">See the freedesktop.org `specification http://standards.freedesktop.org/wm-spec/wm-spec-latest.html for more information.</description>
+    <disclaimer lang="en">Code taken from https://github.com/parkouss/pyewmh</disclaimer>
+    <license>GNU LESSER GENERAL PUBLIC LICENSE v. 3</license>
+    <website>https://github.com/parkouss/pyewmh</website>
+    <source>https://github.com/Takezo36/pyewmh</source>
+  </extension>
+</addon>
