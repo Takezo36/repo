@@ -90,7 +90,7 @@ msgid "Name eingeben"
 msgstr ""
 
 msgctxt "#35020"
-msgid "Sie müssen mindestens PowerShell 3.0 installiert haben."
+msgid "Sie müssen mindestens PowerShell 2.0 installiert haben."
 msgstr ""
 
 msgctxt "#35021"

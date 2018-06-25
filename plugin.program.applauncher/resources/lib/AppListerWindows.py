@@ -29,7 +29,7 @@ def getAppsWithIcons(additionalDir=""):
   output = subprocess.check_output("powershell $PSVersionTable.PSVersion.Major", creationflags=0x08000000)
   try: 
     version = int(output)
-    if version < 3:
+    if version < 2:
       showFailedMsg()
       return {}
   except ValueError:
