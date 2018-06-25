@@ -39,7 +39,7 @@ def getAppsWithIcons(additionalDir=""):
   result = json.loads(output.decode("ascii","replace"))
   return result
 def showFailedMsg():
-  subprocess.call("echo \\\"" + FAIL_URL + "\\\"|clip")
+  subprocess.call(["echo", FAIL_URL,"|","c:\\windows\\system32\\clip.exe"], shell=True)
   xbmcgui.Dialog().ok('Error', FAILED_LINE1,FAILED_LINE2,FAILED_LINE3)
 if (__name__ == "__main__"):
   xbmc.log("version %s started" % ADDON_VERSION)
