@@ -166,3 +166,7 @@ msgstr ""
 msgctxt "#36008"
 msgid "Ignore folder structure and show all OS apps at once"
 msgstr ""
+
+msgctxt "#36009"
+msgid "Cache timeout"
+msgstr ""

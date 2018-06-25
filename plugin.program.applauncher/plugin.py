@@ -52,6 +52,7 @@ IS_CUSTOM = "iscustom"
 handle = -1
 PLUGIN_ACTION = "Container.Update(plugin://plugin.program.applauncher?"
 DIR_SEP = ADDON.getSetting("dirsep")
+CACHE_TIME = int(ADDON.getSetting("cachetime"))
 CREATE_CUSTOM_ENTRY_STRING = ADDON.getLocalizedString(35000)
 CREATE_CUSTOM_FOLDER_STRING = ADDON.getLocalizedString(35001)
 CREATE_CUSTOM_VARIANT_STRING = ADDON.getLocalizedString(35002)
@@ -462,7 +463,7 @@ if (__name__ == "__main__"):
   params = parseArgs()
   addSortingMethods()
   xbmc.executebuiltin("Container.SetViewMode(Icons)")
-  cache = StorageServer.StorageServer(ADDON_ID, 24)
+  cache = StorageServer.StorageServer(ADDON_ID, CACHE_TIME)
   if not os.path.exists(ADDON_USER_DATA_FOLDER):
     os.makedirs(ADDON_USER_DATA_FOLDER)
   if ACTION in params:
