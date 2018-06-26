@@ -50,7 +50,7 @@ $ALLOWED_ICON_TYPES = @(".ico", ".jpg", ".jpeg", ".png", ".bmp");
 $ALLOWED_EXEC_TYPES = @(".exe", ".com", ".bat");
 
 $WINDOWS_STORE_APPS_FOLDER = "Store apps";
-$ICON_STORE_FOLDER = "c:\temp\"#$args[0];
+$ICON_STORE_FOLDER = $args[0];
 if($psversiontable.PSVersion.Major -lt 3){
 	$start1 = "c:\ProgramData\Microsoft\Windows\Start Menu\";
 }else{
@@ -569,5 +569,5 @@ if([System.Environment]::OSVersion.Version.Major -ge 10){
 	getStoreApps;
 }
 
-$json = ConvertTo-STJson $appData
+$json = ConvertTo-STJson $appData -Compress 
 echo $json

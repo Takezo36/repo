@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<addons><addon id="plugin.program.applauncher" name="App Launcher" provider-name="Benjamin Hebgen (Takezo36)" version="0.7.2">
+<addons><addon id="plugin.program.applauncher" name="App Launcher" provider-name="Benjamin Hebgen (Takezo36)" version="0.7.3">
     <requires>
         <import addon="xbmc.python" version="2.24.0" />
         <import addon="script.module.simplejson" version="3.3.0" />
@@ -17,6 +17,17 @@
         <license>GNU GENERAL PUBLIC LICENSE Version 2.1, February 1999</license>
         <source>https://github.com/Takezo36/applauncherkodi</source>
     </extension>
+</addon><addon id="repository.takezo36" name="Takezo36 Add-ons" provider-name="Benjamin Hebgen(Takezo36)" version="1.0.0">
+  <extension name="Aussie Add-ons Repository" point="xbmc.addon.repository">
+    <info compressed="false">https://raw.githubusercontent.com/Takezo36/repo/master/addons.xml</info>
+    <checksum>https://raw.githubusercontent.com/Takezo36/repo/master/addons.xml.md5</checksum>
+    <datadir zip="true">https://raw.githubusercontent.com/Takezo36/repo/master/</datadir>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary>Install Takezo36 Add-ons</summary>
+    <description>Download and install add-ons from the Takezo36 Add-ons repository.</description>
+    <platform>all</platform>
+  </extension>
 </addon><addon id="script.module.ewmh" name="python ewmh" provider-name="Benjamin Hebgen (Takezo36)" version="0.1.6">
   <requires>
     <import addon="xbmc.python" version="2.1.0" />
@@ -49,16 +60,5 @@
     <license>GNU LESSER GENERAL PUBLIC LICENSE v. 2.1</license>
     <website>https://github.com/python-xlib/python-xlib</website>
     <source>https://github.com/Takezo36/python-xlib</source>
-  </extension>
-</addon><addon id="repository.takezo36" name="Takezo36 Add-ons" provider-name="Benjamin Hebgen(Takezo36)" version="1.0.0">
-  <extension name="Aussie Add-ons Repository" point="xbmc.addon.repository">
-    <info compressed="false">https://raw.githubusercontent.com/Takezo36/repo/master/addons.xml</info>
-    <checksum>https://raw.githubusercontent.com/Takezo36/repo/master/addons.xml.md5</checksum>
-    <datadir zip="true">https://raw.githubusercontent.com/Takezo36/repo/master/</datadir>
-  </extension>
-  <extension point="xbmc.addon.metadata">
-    <summary>Install Takezo36 Add-ons</summary>
-    <description>Download and install add-ons from the Takezo36 Add-ons repository.</description>
-    <platform>all</platform>
   </extension>
 </addon></addons>

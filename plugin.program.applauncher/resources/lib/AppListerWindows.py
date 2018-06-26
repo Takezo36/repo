@@ -36,7 +36,7 @@ def getAppsWithIcons(additionalDir=""):
     showFailedMsg()
     return {}
   output = subprocess.check_output(["powershell", APPREADER_SCRIPT], creationflags=0x08000000)
-  result = json.loads(output.decode("ascii","replace"))
+  result = json.loads(output.replace("\n","").replace("\r","").decode("utf-8","replace"))
   return result
 def showFailedMsg():
   subprocess.call(["echo", FAIL_URL,"|","c:\\windows\\system32\\clip.exe"], shell=True)
