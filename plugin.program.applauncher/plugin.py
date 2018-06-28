@@ -242,7 +242,7 @@ def createAppEntry(entry, addToStartPath, isCustom = False):
                'clearlogo':icon,
                'landscape':icon})
   except:
-    xbmc.log("Failed to load icon " + str(icon), xmbc.LOGDEBUG)
+    xbmc.log("Failed to load icon " + str(icon), xbmc.LOGDEBUG)
   contextMenu = []
   if Constants.SIDECALLS in entry.keys():
     addSideCallEntries(contextMenu, entry[Constants.SIDECALLS])
