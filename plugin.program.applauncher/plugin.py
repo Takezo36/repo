@@ -463,7 +463,7 @@ if (__name__ == "__main__"):
   params = parseArgs()
   addSortingMethods()
   xbmc.executebuiltin("Container.SetViewMode(Icons)")
-  cache = StorageServer.StorageServer(ADDON_ID, CACHE_TIME)
+  cache = StorageServer.StorageServer(ADDON_ID+"v1", CACHE_TIME)
   if not os.path.exists(ADDON_USER_DATA_FOLDER):
     os.makedirs(ADDON_USER_DATA_FOLDER)
   if ACTION in params:
