@@ -32,7 +32,7 @@
     <website>https://github.com/python-xlib/python-xlib</website>
     <source>https://github.com/Takezo36/python-xlib</source>
   </extension>
-</addon><addon id="plugin.program.applauncher" name="App Launcher" provider-name="Benjamin Hebgen (Takezo36)" version="0.7.6">
+</addon><addon id="plugin.program.applauncher" name="App Launcher" provider-name="Benjamin Hebgen (Takezo36)" version="0.7.7">
     <requires>
         <import addon="xbmc.python" version="2.24.0" />
         <import addon="script.module.simplejson" version="3.3.0" />

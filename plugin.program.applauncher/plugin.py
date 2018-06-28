@@ -232,14 +232,17 @@ def createAppEntry(entry, addToStartPath, isCustom = False):
     background = entry[Constants.BACKGROUND]
   else:
     background = icon
-  li.setArt({'icon' : icon,
-             'thumb':icon,
-             'poster':icon,
-             'banner':icon,
-             'fanart':background,
-             'clearart':icon,
-             'clearlogo':icon,
-             'landscape':icon})
+  try:
+    li.setArt({'icon' : icon,
+               'thumb':icon,
+               'poster':icon,
+               'banner':icon,
+               'fanart':background,
+               'clearart':icon,
+               'clearlogo':icon,
+               'landscape':icon})
+  except:
+    xbmc.log("Failed to load icon " + str(icon), xmbc.LOGDEBUG)
   contextMenu = []
   if Constants.SIDECALLS in entry.keys():
     addSideCallEntries(contextMenu, entry[Constants.SIDECALLS])
