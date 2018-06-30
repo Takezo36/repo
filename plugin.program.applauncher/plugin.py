@@ -224,7 +224,9 @@ def createAppEntry(entry, addToStartPath, isCustom = False):
     icon = entry[Constants.ICON]
   else:
     icon = ""
-
+  #this is a stupid bugfix for a strange serialization bug in powershell
+  if type(icon) is list:
+    icon = icon[1]
   if arts and Constants.BACKGROUND in arts.keys():
     background = arts[Constants.BACKGROUND]
     hasCustomBackground = True
