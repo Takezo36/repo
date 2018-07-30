@@ -73,6 +73,14 @@ ADD_FOLDER_STRING = ADDON.getLocalizedString(35016)
 MOVE_ENTRY_TO_FOLDER_STRING = ADDON.getLocalizedString(35017)
 HEADER_FAIL_CUSTOM_ENTRY_STRING = ADDON.getLocalizedString(35018)
 CUSTOM_FOLDER_CREATION_FAIL_STRING = ADDON.getLocalizedString(35019)
+MODE = "mode"
+MODE_GAMES = "games"
+MODE_GAMES_ID = 1
+MODE_ALL_ID = 0
+mode = MODE_ALL_ID
+def prepareGamesMode():
+  mode = MODE_GAMES_ID
+  CREATE_CUSTOM_ENTRY_STRING = ADDON.getLocalizedString(37000)
 def addAddCustomEntryButton(handle, path):
   li = xbmcgui.ListItem(CREATE_CUSTOM_ENTRY_STRING)
   li.setPath(path="plugin://plugin.program.applauncher?"+ACTION+"="+ACTION_ADD_CUSTOM_ENTRY+"&"+DIR+"="+urllib.quote(path))
@@ -126,14 +134,15 @@ def createEntries(folderToShow = "", folderIsInCustoms = True):
   if folderIsInCustoms or isRoot:
     addCustomEntries(folderToShow, isRoot)
   if not folderIsInCustoms or isRoot:
-    if not strtobool(ADDON.getSetting("dontshowstart")):
+    if not strtobool(ADDON.getSetting("dontshowstart")) or mode == MODE_GAMES_ID:
       if strtobool(ADDON.getSetting("flattenapps")):
         folderToShow = "all apps"
         isRoot = False
       addStartEntries(folderToShow, isRoot)
   if folderIsInCustoms or isRoot:
     addAddCustomEntryButton(handle, folderToShow)
-    addAddCustomFolderButton(handle, folderToShow)
+    if mode != MODE_GAMES_ID:
+      addAddCustomFolderButton(handle, folderToShow)
   xbmcplugin.endOfDirectory(handle, cacheToDisc=False)  
 
 def getFolder(entries, folderToShow):
@@ -267,11 +276,15 @@ def addCustomEntry(exe="/", args="", icon="/", background="/", name="", path="")
   fileName = dialog.browseSingle(1, SELECT_EXECUTION_FILE_STRING, 'files', '', False, False, exe)
   if fileName == "":
     return
-  params = dialog.input(ADD_PARAMETERS_STRING, args)
+  params = dialog.input(ADD_PARAMETERS_STRING, " ".join(args)).split(" ")
+  if type(icon) is list:
+    icon = icon[1]
   icon = dialog.browseSingle(1, ICON_TITLE_STRING, 'files', '', False, False, icon)
   if icon == "":
     return
-  background = dialog.browseSingle(1, BACKGROUND_TITLE_STRING, 'files', '', False, False, icon)
+  if type(background) is list:
+    background = background[1]
+  background = dialog.browseSingle(1, BACKGROUND_TITLE_STRING, 'files', '', False, False, background)
   if background == "":
     return
   name = dialog.input(SET_NAME_STRING, name)
@@ -353,7 +366,9 @@ def addCustomVariant(path):
   entry = getAppList()
   for key in path.split(DIR_SEP):
     entry = entry[key]
-  addCustomEntry(entry[Constants.EXEC], entry[Constants.ARGS], entry[Constants.ICON], entry[Constants.BACKGROUND], entry[Constants.NAME], path)
+  if not Constants.BACKGROUND in entry.keys():
+    entry[Constants.BACKGROUND] = entry[Constants.ICON]
+  addCustomEntry(entry[Constants.EXEC], entry[Constants.ARGS], entry[Constants.ICON], entry[Constants.BACKGROUND], entry[Constants.NAME], "")
 
 def executeApp(command, args):
   killKodi = strtobool(ADDON.getSetting("killkodi"))
@@ -466,6 +481,10 @@ def parseArgs():
   return params
 if (__name__ == "__main__"):
   params = parseArgs()
+  if MODE in params:
+    mode = params[MODE]
+    if mode == MODE_GAMES:
+      prepareGamesMode()
   addSortingMethods()
   xbmc.executebuiltin("Container.SetViewMode(Icons)")
   cache = StorageServer.StorageServer(ADDON_ID+"v2", CACHE_TIME)
