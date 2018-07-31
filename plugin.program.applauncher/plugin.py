@@ -79,7 +79,9 @@ MODE_GAMES_ID = 1
 MODE_ALL_ID = 0
 mode = MODE_ALL_ID
 def prepareGamesMode():
+  global mode
   mode = MODE_GAMES_ID
+  global CREATE_CUSTOM_ENTRY_STRING 
   CREATE_CUSTOM_ENTRY_STRING = ADDON.getLocalizedString(37000)
 def addAddCustomEntryButton(handle, path):
   li = xbmcgui.ListItem(CREATE_CUSTOM_ENTRY_STRING)
@@ -133,15 +135,17 @@ def createEntries(folderToShow = "", folderIsInCustoms = True):
     isRoot = True
   if folderIsInCustoms or isRoot:
     addCustomEntries(folderToShow, isRoot)
-  if not folderIsInCustoms or isRoot:
-    if not strtobool(ADDON.getSetting("dontshowstart")) or mode == MODE_GAMES_ID:
-      if strtobool(ADDON.getSetting("flattenapps")):
-        folderToShow = "all apps"
-        isRoot = False
-      addStartEntries(folderToShow, isRoot)
-  if folderIsInCustoms or isRoot:
+  if mode == MODE_GAMES_ID:
     addAddCustomEntryButton(handle, folderToShow)
-    if mode != MODE_GAMES_ID:
+  else:
+    if not folderIsInCustoms or isRoot:
+      if not strtobool(ADDON.getSetting("dontshowstart")):
+        if strtobool(ADDON.getSetting("flattenapps")):
+          folderToShow = "all apps"
+          isRoot = False
+        addStartEntries(folderToShow, isRoot)
+    if folderIsInCustoms or isRoot:
+      addAddCustomEntryButton(handle, folderToShow)
       addAddCustomFolderButton(handle, folderToShow)
   xbmcplugin.endOfDirectory(handle, cacheToDisc=False)  
 

@@ -1,0 +1,1 @@
+python ./create_repository.py ./plugin.program.applauncher ./repository.takezo36 ./script.module.ewmh ./script.module.xlib
