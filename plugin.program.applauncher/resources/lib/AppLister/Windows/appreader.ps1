@@ -239,10 +239,6 @@ Function getStoreApps(){
 		$packageName = $storeApp.PackageFullName;
 		$installLocation = $storeApp.InstallLocation;
 		$key = $storeApp.Name;
-		$icon = (Get-AppxPackageManifest -package $packageName).package.applications.application.visualelements.Square44x44Logo;
-		if($icon -is [array]){
-			$icon = $icon[0];
-		}
 		if(-Not $tempStore.ContainsKey($key)){
 			$temp["inStart"] = $false;
 			$tempStore[$key] = $temp;
@@ -252,7 +248,24 @@ Function getStoreApps(){
 		$temp["inAppx"] = $true;
 		$temp["packageName"] = $packageName;
 		$temp["installLocation"] = $installLocation;
-		$temp["icon"] = getStoreLogo($installLocation + "\" + $icon);
+		try{
+			$icon = (Get-AppxPackageManifest -package $packageName).package.applications.application.visualelements.Square44x44Logo;
+			if($icon -is [array]){
+				$icon = $icon[0];
+			}
+			$temp["icon"] = getStoreLogo($installLocation + "\" + $icon);
+		}catch{
+			try{
+				$icon = (Get-AppxPackageManifest -package $packageName).package.applications.application.visualelements.Square150x150Logo;
+				if($icon -is [array]){
+					$icon = $icon[0];
+				}
+				$temp["icon"] = getStoreLogo($installLocation + "\" + $icon);
+			}catch{
+				$temp["icon"] = ""
+			}
+
+		}
 	}
 
 	$startAppsFolder = @{};

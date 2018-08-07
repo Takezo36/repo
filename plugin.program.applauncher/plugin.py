@@ -83,49 +83,7 @@ def prepareGamesMode():
   mode = MODE_GAMES_ID
   global CREATE_CUSTOM_ENTRY_STRING 
   CREATE_CUSTOM_ENTRY_STRING = ADDON.getLocalizedString(37000)
-def addAddCustomEntryButton(handle, path):
-  li = xbmcgui.ListItem(CREATE_CUSTOM_ENTRY_STRING)
-  li.setPath(path="plugin://plugin.program.applauncher?"+ACTION+"="+ACTION_ADD_CUSTOM_ENTRY+"&"+DIR+"="+urllib.quote(path))
-  xbmcplugin.addDirectoryItem(handle, li.getPath(), li)
-def addAddCustomFolderButton(handle, path):
-  li = xbmcgui.ListItem(CREATE_CUSTOM_FOLDER_STRING)
-  li.setPath(path="plugin://plugin.program.applauncher?"+ACTION+"="+ACTION_ADD_CUSTOM_FOLDER+"&"+DIR+"="+urllib.quote(path))
-  xbmcplugin.addDirectoryItem(handle, li.getPath(), li) 
 
-def addForceRefreshButton(contextMenu):
-  contextMenu.append((FORCE_REFRESH_STRING, PLUGIN_ACTION+ACTION+"="+ACTION_FORCE_REFRESH+")"))
-  return contextMenu
-
-def addSideCallEntries(contextMenu, sideCalls):
-  for sideCall in sideCalls:
-    contextMenu.append((sideCall[Constants.NAME], PLUGIN_ACTION+ACTION+"="+ACTION_EXEC+"&"+ACTION_EXEC+"="+sideCall[Constants.EXEC]+"&"+ARGS_PARAM+"="+",".join(sideCall[Constants.ARGS])+")"))
-  return contextMenu
-
-def addMoveEntryToFolderEntry(contextMenu, path):
-  contextMenu.append((MOVE_TO_FOLDER_STRING, PLUGIN_ACTION+ACTION+"="+ACTION_MOVE_TO_FOLDER+"&"+DIR+"="+path+")"))
-  return contextMenu
-
-def addRemoveCustomEntry(contextMenu, path):
-  contextMenu.append((REMOVE_CUSTOM_ENTRY_STRING, PLUGIN_ACTION+ACTION+"="+ACTION_REMOVE_FROM_CUSTOMS+"&"+DIR+"="+path+")"))
-  return contextMenu
-def addAddStartToCustomEntries(contextMenu, path):
-  contextMenu.append((ADD_START_ENTRY_TO_CUSTOMS_STRING, PLUGIN_ACTION+ACTION+"="+ACTION_ADD_START_TO_CUSTOM+"&"+DIR+"="+path+")"))
-  return contextMenu
-def addCustomVariantEntry(contextMenu, path):
-  contextMenu.append((CREATE_CUSTOM_VARIANT_STRING, PLUGIN_ACTION+ACTION+"="+ACTION_ADD_CUSTOM_VARIANT+"&"+DIR+"="+path+")"))
-  return contextMenu
-def addUnsetCustomIconEntry(contextMenu, path):
-  contextMenu.append((UNSET_CUSTOM_ICON_STRING, PLUGIN_ACTION+ACTION+"="+ACTION_UNSET_CUSTOM_ICON+"&"+DIR+"="+path+")"))
-  return contextMenu
-def addUnsetCustomBackgroundEntry(contextMenu, path):
-  contextMenu.append((UNSET_CUSTOM_BACKGROUND_STRING, PLUGIN_ACTION+ACTION+"="+ACTION_UNSET_CUSTOM_BACKGROUND+"&"+DIR+"="+path+")"))
-  return contextMenu
-def addSetCustomIconEntry(contextMenu, path, isCustom):
-  contextMenu.append((SET_CUSTOM_ICON_STRING, PLUGIN_ACTION+ACTION+"="+ACTION_SET_CUSTOM_ICON+"&"+DIR+"="+path+"&"+IS_CUSTOM+"="+str(int(isCustom))+")"))
-  return contextMenu
-def addSetCustomBackgroundEntry(contextMenu, path, isCustom):
-  contextMenu.append((SET_CUSTOM_BACKGROUND_STRING, PLUGIN_ACTION+ACTION+"="+ACTION_SET_CUSTOM_BACKGROUND+"&"+DIR+"="+path+"&"+IS_CUSTOM+"="+str(int(isCustom))+")"))
-  return contextMenu
 
 def createEntries(folderToShow = "", folderIsInCustoms = True):
   customeEntries = None
@@ -190,84 +148,8 @@ def addStartEntries(folderToShow, isRoot):
 
 
 
-def createFolder(name, target, path, isCustom):
-  li = xbmcgui.ListItem(name)
-  li.setPath(path=target)
-  contextMenu = []
-  addBaseContextMenu(contextMenu, path, isCustom, True)
-  li.addContextMenuItems(contextMenu)
-  return li
-
-def addBaseContextMenu(contextMenu, path, isCustom, isFolder, hasCustomIcon=True, hasCustomBackground=True):
-  if isCustom:
-    if not isFolder:
-      addMoveEntryToFolderEntry(contextMenu, path)
-    addRemoveCustomEntry(contextMenu, path)
-  else:
-    if not isFolder:
-      addCustomVariantEntry(contextMenu, path)
-      addAddStartToCustomEntries(contextMenu, path)
-  if not isFolder:
-    if hasCustomIcon:
-      addUnsetCustomIconEntry(contextMenu, path)
-    else:
-      addSetCustomIconEntry(contextMenu, path, isCustom)
-    if hasCustomBackground:
-      addUnsetCustomBackgroundEntry(contextMenu, path)
-    else:
-      addSetCustomBackgroundEntry(contextMenu, path, isCustom)
 
 
-  addForceRefreshButton(contextMenu)
-
-def createAppEntry(entry, addToStartPath, isCustom = False):
-  li = xbmcgui.ListItem(entry[Constants.NAME])
-  arts = loadData()[CUSTOM_ARTS]
-  try:
-    for key in addToStartPath.split(DIR_SEP):
-      arts = arts[key]
-  except:
-    arts = None
-  hasCustomIcon = False
-  hasCustomBackground = False
-  if arts and Constants.ICON in arts.keys():
-    icon = arts[Constants.ICON]
-    hasCustomIcon = True
-  elif Constants.ICON in entry:
-    icon = entry[Constants.ICON]
-  else:
-    icon = ""
-  #this is a stupid bugfix for a strange serialization bug in powershell
-  if type(icon) is list:
-    icon = icon[1]
-  if arts and Constants.BACKGROUND in arts.keys():
-    background = arts[Constants.BACKGROUND]
-    hasCustomBackground = True
-  elif Constants.BACKGROUND in entry:
-    background = entry[Constants.BACKGROUND]
-  else:
-    background = icon
-  try:
-    li.setArt({'icon' : icon,
-               'thumb':icon,
-               'poster':icon,
-               'banner':icon,
-               'fanart':background,
-               'clearart':icon,
-               'clearlogo':icon,
-               'landscape':icon})
-  except:
-    xbmc.log("Failed to load icon " + str(icon), xbmc.LOGDEBUG)
-  contextMenu = []
-  if Constants.SIDECALLS in entry.keys():
-    addSideCallEntries(contextMenu, entry[Constants.SIDECALLS])
-  addBaseContextMenu(contextMenu, addToStartPath, isCustom, False, hasCustomIcon, hasCustomBackground)
-  li.addContextMenuItems(contextMenu)
-  try:
-    li.setPath(path="plugin://plugin.program.applauncher?"+ACTION+"="+ACTION_EXEC+"&"+ACTION_EXEC+"="+entry[Constants.EXEC]+"&"+ARGS_PARAM+"="+urllib.quote(",".join(entry[Constants.ARGS])))
-  except:
-    xbmc.log("Failed to load entry", xbmc.LOGDEBUG)
-  return li
 def addStartEntryAsCustom(path):
   entry = getAppList()
   for key in path.split(DIR_SEP):
@@ -490,7 +372,6 @@ if (__name__ == "__main__"):
     if mode == MODE_GAMES:
       prepareGamesMode()
   addSortingMethods()
-  xbmc.executebuiltin("Container.SetViewMode(Icons)")
   cache = StorageServer.StorageServer(ADDON_ID+"v2", CACHE_TIME)
   if not os.path.exists(ADDON_USER_DATA_FOLDER):
     os.makedirs(ADDON_USER_DATA_FOLDER)
